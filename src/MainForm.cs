@@ -385,8 +385,20 @@ namespace HostsFileEditor
         /// </param>
         private void OnExitClick(object sender, EventArgs e)
         {
+            this.Close();
+        }
+
+        /// <summary>
+        /// Occurs before the main window is closed.
+        /// </summary>
+        /// <param name="e">
+        /// The event arguments.
+        /// </param>
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+
             this.SaveSettings();
-            Application.Exit();
         }
 
         /// <summary>
