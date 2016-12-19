@@ -1,6 +1,11 @@
-# Hosts File Editor
+# Hosts File Editor (Chopped)
 
-Easily edit and manage the hosts file for your Windows PC. 
+Easily edit and manage the hosts file for your Windows PC.
+
+## Fork Modifications
+This is a personal mod. Custom copy/paste handling was conflicting with [Ditto](http://ditto-cp.sourceforge.net/) clipboard manager, so I removed it. I also did not need the single-instance functionality and off it went too.
+
+So, not *really* a mod. Nothing of value added and lots of lovingly crafted code removed. No chopped binaries provided (yet). Everything below is from the original readme.
 
 ## Binaries
 
