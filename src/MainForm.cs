@@ -52,11 +52,6 @@ namespace HostsFileEditor
         private BindingListView<HostsArchive> hostsArchiveView;
 
         /// <summary>
-        /// The clipboard host entries.
-        /// </summary>
-        private IEnumerable<HostsEntry> clipboardEntries;
-
-        /// <summary>
         /// Determines if user is currently adding a new row.  Used for ugly
         /// hacks setup in load event.
         /// </summary>
@@ -133,107 +128,6 @@ namespace HostsFileEditor
                 {
                     HostsFile.Instance.Archive(inputDialog.Input);
                 }
-            }
-        }
-
-        /// <summary>
-        /// Occurs when copy clicked.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The event arguments.
-        /// </param>
-        private void OnCopyClick(object sender, EventArgs e)
-        {
-            // HACK: If editing cell forward cut/copy/paste command
-            // to editing control
-            if (this.dataGridViewHostsEntries.IsCurrentCellInEditMode)
-            {
-                var keys = this.menuCopy.ShortcutKeys;
-                this.menuCopy.ShortcutKeys = Keys.None;
-                this.menuContextCopy.ShortcutKeys = Keys.None;
-                SendKeys.SendWait("^(C)");
-                this.menuCopy.ShortcutKeys = keys;
-                this.menuContextCopy.ShortcutKeys = keys;
-                return;
-            }
-
-            if (this.dataGridViewHostsEntries.SelectedRows.Count > 0)
-            {
-                this.clipboardEntries = this.dataGridViewHostsEntries
-                    .SelectedHostEntries
-                    .Select(entry => new HostsEntry(entry)).ToList();
-            }
-            else
-            {
-                StringBuilder builder = new StringBuilder();
-
-                foreach (
-                    DataGridViewCell cell in 
-                    this.dataGridViewHostsEntries.SelectedCells)
-                {
-                    if (cell.ValueType == typeof(string))
-                    {
-                        builder.Append(cell.Value.ToString());
-                    }
-                }
-                
-                Clipboard.SetText(builder.ToString());
-            }
-        }
-
-        /// <summary>
-        /// Occurs when cut clicked.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The event arguments.
-        /// </param>
-        private void OnCutClick(object sender, EventArgs e)
-        {
-            // HACK: If editing cell forward cut/copy/paste command
-            // to editing control
-            if (this.dataGridViewHostsEntries.IsCurrentCellInEditMode)
-            {
-                var keys = this.menuCut.ShortcutKeys;
-                this.menuCut.ShortcutKeys = Keys.None;
-                this.menuContextCut.ShortcutKeys = Keys.None;
-                SendKeys.SendWait("^(X)");
-                this.menuCut.ShortcutKeys = keys;
-                this.menuContextCut.ShortcutKeys = keys;
-                return;
-            }
-
-            this.dataGridViewHostsEntries.CancelEdit();
-
-            if (this.dataGridViewHostsEntries.SelectedRows.Count > 0)
-            {
-                this.clipboardEntries = this.dataGridViewHostsEntries
-                    .SelectedHostEntries
-                    .ToList();
-
-                HostsFile.Instance.Entries.Remove(this.clipboardEntries);
-            }
-            else
-            {
-                StringBuilder builder = new StringBuilder();
-
-                foreach (
-                    DataGridViewCell cell in 
-                    this.dataGridViewHostsEntries.SelectedCells)
-                {
-                    if (cell.ValueType == typeof(string))
-                    {
-                        builder.Append(cell.Value.ToString());
-                        cell.Value = string.Empty;
-                    }
-                }
-
-                Clipboard.SetText(builder.ToString());
             }
         }
 
@@ -671,55 +565,6 @@ namespace HostsFileEditor
         private void OnNotifyIconDoubleClick(object sender, EventArgs e)
         {
             this.ShowOrActivate();
-        }
-
-        /// <summary>
-        /// Occurs when paste clicked.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The event arguments.
-        /// </param>
-        private void OnPasteClick(object sender, EventArgs e)
-        {
-            // HACK: If editing cell forward cut/copy/paste command
-            // to editing control
-            if (this.dataGridViewHostsEntries.IsCurrentCellInEditMode)
-            {
-                var keys = this.menuPaste.ShortcutKeys;
-                this.menuPaste.ShortcutKeys = Keys.None;
-                this.menuContextPaste.ShortcutKeys = Keys.None;
-                SendKeys.SendWait("^(V)");
-                this.menuPaste.ShortcutKeys = keys;
-                this.menuContextPaste.ShortcutKeys = keys;
-                return;
-            }
-
-            this.dataGridViewHostsEntries.CancelEdit();
-
-            if (this.dataGridViewHostsEntries.SelectedRows.Count > 0 && 
-                this.clipboardEntries != null)
-            {
-                HostsFile.Instance.Entries.Insert(
-                    this.dataGridViewHostsEntries.CurrentHostEntry, 
-                    this.clipboardEntries);
-
-                this.clipboardEntries = null;
-            }
-            else
-            {
-                foreach (
-                    DataGridViewCell cell in 
-                    this.dataGridViewHostsEntries.SelectedCells)
-                {
-                    if (cell.ValueType == typeof(string))
-                    {
-                        cell.Value = Clipboard.GetText();
-                    }
-                }
-            }
         }
 
         /// <summary>
