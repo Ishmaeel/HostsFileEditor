@@ -88,25 +88,6 @@ namespace HostsFileEditor
         #region Methods
 
         /// <summary>
-        /// The window procedure.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        protected override void WndProc(ref Message message)
-        {
-            if (message.Msg == ProgramSingleInstance.WM_SHOWFIRSTINSTANCE)
-            {
-                if (this.WindowState == FormWindowState.Minimized)
-                {
-                    this.WindowState = FormWindowState.Normal;
-                }
-
-                this.ShowOrActivate();
-            }
-
-            base.WndProc(ref message);
-        } 
-
-        /// <summary>
         /// Called when archive clicked.
         /// </summary>
         /// <param name="sender">The sender.</param>
@@ -176,7 +157,6 @@ namespace HostsFileEditor
 
             this.menuDisable.Checked = !checkState;
             this.buttonDisable.Checked = !checkState;
-            this.menuContextDisable.Checked = !checkState;
 
             if (checkState)
             {
@@ -186,8 +166,6 @@ namespace HostsFileEditor
             {
                 HostsFile.DisableHostsFile();
             }
-
-            this.UpdateNotifyIcon();
         }
 
         /// <summary>
@@ -303,8 +281,6 @@ namespace HostsFileEditor
             this.menuDisable.Checked = !HostsFile.IsEnabled;
             this.buttonDisable.Checked = !HostsFile.IsEnabled;
 
-            this.UpdateNotifyIcon();
-
             // HACK: Make sure a newly added row gets committed after
             // the first cell is validated so HostsEntry validation and data
             // binding behaves correctly
@@ -335,25 +311,6 @@ namespace HostsFileEditor
                 {
                     this.ignoreAddingNew = false;
                 };
-        }
-
-
-        /// <summary>
-        /// Occurs when form is closing.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The event arguments.
-        /// </param>
-        private void OnFormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (e.CloseReason != CloseReason.ApplicationExitCall)
-            {
-                e.Cancel = true;
-                this.Hide();
-            }
         }
 
         /// <summary>
@@ -579,17 +536,6 @@ namespace HostsFileEditor
         private void OnVisibleChanged(object sender, EventArgs e)
         {
             this.ShowInTaskbar = this.Visible;
-        }
-
-        /// <summary>
-        /// Updates the notify icon.
-        /// </summary>
-        private void UpdateNotifyIcon()
-        {
-            this.notifyIcon.Icon =
-                HostsFile.IsEnabled ?
-                Resources.HostsFileEditor : 
-                Resources.HostsFileEditorDisabled;
         }
 
         /// <summary>

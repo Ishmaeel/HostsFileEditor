@@ -47,23 +47,12 @@ namespace HostsFileEditor
         [STAThread]
         private static void Main()
         {
-            // Ensure only one copy of the application is running at a time
-            using (var program = ProgramSingleInstance.Start())
-            {
-                if (program.IsOnlyInstance)
-                { 
-                    Application.EnableVisualStyles();
-                    Application.SetCompatibleTextRenderingDefault(false);
-                    Application.ThreadException += OnApplicationThreadException;
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.ThreadException += OnApplicationThreadException;
 
-                    mainForm = new MainForm();
-                    Application.Run(mainForm);
-                }
-                else
-                {
-                    program.ShowFirstInstance();
-                }
-            }
+            mainForm = new MainForm();
+            Application.Run(mainForm);
         }
 
         /// <summary>

@@ -72,8 +72,6 @@ namespace HostsFileEditor
             System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
             System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
             System.Windows.Forms.ToolStripSeparator toolStripSeparator19;
-            System.Windows.Forms.ToolStripSeparator toolStripSeparator21;
-            System.Windows.Forms.ToolStripSeparator toolStripSeparator20;
             System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
@@ -161,11 +159,6 @@ namespace HostsFileEditor
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.contextMenuTray = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.menuContextEdit = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuContextDisable = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.bindingSourceHostEntries = new System.Windows.Forms.BindingSource(this.components);
             toolStripSeparator23 = new System.Windows.Forms.ToolStripSeparator();
@@ -187,8 +180,6 @@ namespace HostsFileEditor
             toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator19 = new System.Windows.Forms.ToolStripSeparator();
-            toolStripSeparator21 = new System.Windows.Forms.ToolStripSeparator();
-            toolStripSeparator20 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
@@ -208,7 +199,6 @@ namespace HostsFileEditor
             this.toolStripArchive.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
-            this.contextMenuTray.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHostEntries)).BeginInit();
             this.SuspendLayout();
             // 
@@ -934,16 +924,6 @@ namespace HostsFileEditor
             toolStripSeparator19.Name = "toolStripSeparator19";
             resources.ApplyResources(toolStripSeparator19, "toolStripSeparator19");
             // 
-            // toolStripSeparator21
-            // 
-            toolStripSeparator21.Name = "toolStripSeparator21";
-            resources.ApplyResources(toolStripSeparator21, "toolStripSeparator21");
-            // 
-            // toolStripSeparator20
-            // 
-            toolStripSeparator20.Name = "toolStripSeparator20";
-            resources.ApplyResources(toolStripSeparator20, "toolStripSeparator20");
-            // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
@@ -1006,42 +986,6 @@ namespace HostsFileEditor
             resources.ApplyResources(this.saveFileDialog, "saveFileDialog");
             this.saveFileDialog.InitialDirectory = "C:\\Windows\\System32\\drivers\\etc";
             // 
-            // notifyIcon
-            // 
-            this.notifyIcon.ContextMenuStrip = this.contextMenuTray;
-            resources.ApplyResources(this.notifyIcon, "notifyIcon");
-            this.notifyIcon.DoubleClick += new System.EventHandler(this.OnNotifyIconDoubleClick);
-            // 
-            // contextMenuTray
-            // 
-            this.contextMenuTray.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuContextEdit,
-            toolStripSeparator21,
-            this.menuContextDisable,
-            toolStripSeparator20,
-            this.contextMenuExit});
-            this.contextMenuTray.Name = "contextMenuTray";
-            resources.ApplyResources(this.contextMenuTray, "contextMenuTray");
-            // 
-            // menuContextEdit
-            // 
-            this.menuContextEdit.Name = "menuContextEdit";
-            resources.ApplyResources(this.menuContextEdit, "menuContextEdit");
-            this.menuContextEdit.Click += new System.EventHandler(this.OnEditClick);
-            // 
-            // menuContextDisable
-            // 
-            this.menuContextDisable.Image = global::HostsFileEditor.Properties.Resources.Disable;
-            this.menuContextDisable.Name = "menuContextDisable";
-            resources.ApplyResources(this.menuContextDisable, "menuContextDisable");
-            this.menuContextDisable.Click += new System.EventHandler(this.OnDisableHostsClick);
-            // 
-            // contextMenuExit
-            // 
-            this.contextMenuExit.Name = "contextMenuExit";
-            resources.ApplyResources(this.contextMenuExit, "contextMenuExit");
-            this.contextMenuExit.Click += new System.EventHandler(this.OnExitClick);
-            // 
             // openFileDialog
             // 
             this.openFileDialog.FileName = "hosts";
@@ -1059,7 +1003,6 @@ namespace HostsFileEditor
             this.MainMenuStrip = this.menuStrip;
             this.Name = "MainForm";
             this.ShowInTaskbar = false;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
             this.Load += new System.EventHandler(this.OnFomLoad);
             this.Shown += new System.EventHandler(this.OnFormShown);
             this.ResizeEnd += new System.EventHandler(this.OnResizingEnd);
@@ -1090,7 +1033,6 @@ namespace HostsFileEditor
             this.menuStrip.PerformLayout();
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
-            this.contextMenuTray.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHostEntries)).EndInit();
             this.ResumeLayout(false);
 
@@ -1147,11 +1089,6 @@ namespace HostsFileEditor
         private System.Windows.Forms.DataGridViewTextBoxColumn columnComment;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnUnparsedText;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnFiller;
-        private System.Windows.Forms.NotifyIcon notifyIcon;
-        private System.Windows.Forms.ContextMenuStrip contextMenuTray;
-        private System.Windows.Forms.ToolStripMenuItem menuContextDisable;
-        private System.Windows.Forms.ToolStripMenuItem contextMenuExit;
-        private System.Windows.Forms.ToolStripMenuItem menuContextEdit;
         private System.Windows.Forms.ToolStripStatusLabel labelLineCount;
         private HostsFileEditor.Controls.ToolStripBindableStatusLabel labelLineCountNumber;
         private System.Windows.Forms.BindingSource bindingSourceHostFile;
